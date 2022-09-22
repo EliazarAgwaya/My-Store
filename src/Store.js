@@ -23,11 +23,10 @@ function Store () {
                 setOrders(orders);
             })
     }, [])
-    console.log(orders)
     return (
         <div>
-            <Users/>
-            <Products/>
+            <Users users={users}/>
+            <Products products={products}/>
             <Orders/>
         </div>
     )
