@@ -1,11 +1,7 @@
 import React from "react";
 
-function Orders () {
-    return (
-        <div>
-
-        </div>
-    )
+function Orders({ theOrders }) {
+  return <div></div>;
 }
 
-export default Orders
+export default Orders;

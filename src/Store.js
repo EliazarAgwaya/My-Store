@@ -1,35 +1,43 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
 import Users from "./Users";
 import Orders from "./Orders";
 import Products from "./Products";
 
-function Store () {
-    const [users, setUsers] = useState([])
-    const [products, setProducts] = useState([])
-    const [orders, setOrders] = useState([])
+function Store() {
+  const [users, setUsers] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
 
-    const urls = [
-        "https://assessment.api.vweb.app/users",
-        "https://assessment.api.vweb.app/products",
-        "https://assessment.api.vweb.app/orders",
-      ];
+  const links = [
+    "https://assessment.api.vweb.app/users",
+    "https://assessment.api.vweb.app/products",
+    "https://assessment.api.vweb.app/orders",
+  ];
 
-    useEffect(() => {
-        Promise.all(urls.map((url) => fetch(url)
-            .then((res) =>res.json())))
-            .then(([users, products, orders]) => {
-                setUsers(users);
-                setProducts(products);
-                setOrders(orders);
-            })
-    }, [])
-    return (
-        <div>
-            <Users users={users}/>
-            <Products products={products}/>
-            <Orders/>
-        </div>
-    )
+  useEffect(() => {
+    Promise.all(
+      links.map((link) => fetch(link).then((res) => res.json()))
+    ).then(([users, products, orders]) => {
+      setUsers(users);
+      setProducts(products);
+      setOrders(orders);
+    });
+  }, []);
+
+  return (
+    <div>
+      <Routes>
+        <Route
+          exact
+          path="/products"
+          element={<Products products={products} />}
+        />
+        <Route exact path="/users" element={<Users users={users} />} />
+      </Routes>
+      <Orders orders={orders} products={products} />
+    </div>
+  );
 }
 
-export default Store
+export default Store;
